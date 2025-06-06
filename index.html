@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مباريات اليوم</title>
+  <style>
+    body {
+      background-color: #f1f1f1;
+      font-family: Arial, sans-serif;
+      padding: 15px;
+    }
+
+    .match {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .team {
+      width: 25%;
+      text-align: center;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .team img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
+    }
+
+    .center {
+      width: 50%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .status {
+      background-color: black;
+      color: white;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin: 5px 0;
+    }
+
+    .dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .dialog-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .dialog-content h3 {
+      margin-top: 0;
+    }
+
+    .dialog-content a {
+      display: block;
+      margin: 10px 0;
+      color: blue;
+      text-decoration: none;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📅 مباريات اليوم</h2>
+  <div id="matches-container"></div>
+
+  <div id="dialog" class="dialog" style="display:none;">
+    <div class="dialog-content">
+      <h3>📺 روابط المشاهدة</h3>
+      <a href="#">سيرفر 1</a>
+      <a href="#">سيرفر 2</a>
+      <button class="close-btn" onclick="document.getElementById('dialog').style.display='none'">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    fetch('https://raw.githubusercontent.com/mohammed0982/mat/refs/heads/main/matches.json') // غيّر المسار إذا كان من GitHub Raw link
+      .then(res => res.json())
+      .then(matches => {
+        const container = document.getElementById('matches-container');
+
+        matches.forEach(match => {
+          const matchDiv = document.createElement('div');
+          matchDiv.className = 'match';
+          
+          matchDiv.innerHTML = `
+            <div class="team">
+              <img src="${match.home_logo}" alt="${match.home_team}" onerror="this.src='https://via.placeholder.com/40?text=?'">
+              <div>${match.home_team}</div>
+            </div>
+            <div class="center">
+              <div style="margin-bottom: 5px; font-weight: bold;">${match.time_or_result}</div>
+              <div class="status">${match.status}</div>
+              <div class="note">${match.match_type}</div>
+            </div>
+            <div class="team">
+              <img src="${match.away_logo}" alt="${match.away_team}" onerror="this.src='https://via.placeholder.com/40?text=?'">
+              <div>${match.away_team}</div>
+            </div>
+          `;
+
+          matchDiv.addEventListener('click', () => {
+            document.getElementById('dialog').style.display = 'flex';
+          });
+
+          container.appendChild(matchDiv);
+        });
+      })
+      .catch(err => console.error("مشكل في جلب JSON:", err));
+  </script>
+
+</body>
+</html>
