@@ -3,20 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>مباريات اليوم</title>
-  <!-- ربط مكتبة Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
   <style>
     body {
       background-color: #f1f1f1;
       font-family: Arial, sans-serif;
       padding: 15px;
-      margin-bottom: 60px; /* مساحة لشريط التنقل */
+      margin-bottom: 60px;
     }
 
-    /* === أنيميشن المباريات === */
     .match {
       display: flex;
       justify-content: space-between;
@@ -32,14 +26,8 @@
     }
 
     @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .team {
@@ -73,7 +61,6 @@
       margin: 5px 0;
     }
 
-    /* === شريط التنقل الأسفل === */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
@@ -103,9 +90,9 @@
       width: 60px;
     }
 
-    nav.bottom-nav button i {
-      font-size: 20px;
-      transition: transform 0.3s;
+    nav.bottom-nav button img {
+      width: 22px;
+      height: 22px;
     }
 
     nav.bottom-nav button.active,
@@ -114,22 +101,10 @@
       font-weight: bold;
     }
 
-    /* أنيميشن خفيف عند تفعيل الزر */
-    nav.bottom-nav button.active i {
-      animation: bounce 0.6s ease;
-      color: #2196F3;
+    nav.bottom-nav button.active img {
+      transform: scale(1.2);
     }
 
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    /* === أقسام المحتوى === */
     section.content-section {
       display: none;
     }
@@ -138,7 +113,6 @@
       display: block;
     }
 
-    /* === حوار روابط المشاهدة === */
     .dialog {
       position: fixed;
       top: 0;
@@ -187,36 +161,30 @@
 
   <h2>📅 مباريات اليوم</h2>
 
-  <!-- قسم مباريات اليوم -->
   <section id="matches-section" class="content-section active">
     <div id="matches-container"></div>
   </section>
 
-  <!-- قسم الأفلام (مثال) -->
   <section id="movies-section" class="content-section">
     <h3>🎬 أفلام</h3>
     <p>هنا يمكنك وضع محتوى الأفلام.</p>
   </section>
 
-  <!-- قسم القنوات (مثال) -->
   <section id="channels-section" class="content-section">
     <h3>📺 قنوات</h3>
     <p>محتوى القنوات هنا.</p>
   </section>
 
-  <!-- قسم الأخبار -->
   <section id="news-section" class="content-section">
     <h3>📰 أخبار رياضية</h3>
     <p>هنا يمكنك وضع الأخبار الرياضية أو أي محتوى آخر.</p>
   </section>
 
-  <!-- قسم الإعدادات (مثال) -->
   <section id="settings-section" class="content-section">
     <h3>⚙️ الإعدادات</h3>
     <p>محتوى الإعدادات هنا.</p>
   </section>
 
-  <!-- حوار روابط المشاهدة -->
   <div id="dialog" class="dialog" style="display:none;">
     <div class="dialog-content">
       <h3>📺 روابط المشاهدة</h3>
@@ -226,44 +194,38 @@
     </div>
   </div>
 
-  <!-- شريط التنقل الأسفل -->
   <nav class="bottom-nav">
     <button class="nav-btn active" data-target="matches-section" title="مباريات">
-      <i class="fas fa-futbol"></i>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABU4Y0XAAAAAXNSR0IArs4c6QAAAN9JREFUSA3t1E0KwkAQRuFvIQbMZsEzMcEzMQEzQQfIQbtzA+ns37eM6dFJShQ40fIXBAIwyIX6MQLBAFYX1RwRK2Bd1B6cIfmBx0pYH0RPcgJvGbTuECmGJY/3Jhsv6cAyo6YchqMoRPmIEEKZo0dZ0yogSZzDFcoyAvOYxT0TAFXI1R7KeWceqU0Z2dKo4v+0rRHrNeOb3Aci8cZHZbKAAAAABJRU5ErkJggg==" alt="مباريات" />
       مباريات
     </button>
     <button class="nav-btn" data-target="movies-section" title="أفلام">
-      <i class="fas fa-film"></i>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAcCAYAAAAl9n3eAAAACXBIWXMAAAsTAAALEwEAmpwYAAABaUlEQVR4nO2WwUoDQRSGv4wXEjcRUQXuQsTwA8RMzN7B3dwW8QW7EY3gYcQNlZ2EkYSeEXARweY7urKkghdFbWgspJC9XpZxvdljINIZ+UwBhAE+CG8xMJ0n1Hd8AOch4Iklglg1HgX4Hzpq3IAk9YkKgIq98g5L+d+XMrKP8uQIUoBoYA8lsN7OCjLFlFCnQDksAUxipRTkBV60TIcYTxC4ImzNBIqgNMIoHRy0sncvItiXVu+Y4/AOuZt0k2Uv2lCvLFWFosK0sMNGLz+9cMl3qvS1D5cAfbkFlHtMKoovRgKfWkKxgKHDId77HJMLaB0wn3M3qUn8e6MTCXWc6U1r0F1IpNiJMnqX2s9J5AxpRC4he26Xn08xuwpyi98K8CSNfd+aWe6uwAAAAAElFTkSuQmCC" alt="أفلام" />
       أفلام
     </button>
     <button class="nav-btn" data-target="channels-section" title="قنوات">
-      <i class="fas fa-tv"></i>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABU4Y0XAAAAvUlEQVR4nO2W0QnCMBBFn0ZQEUkQHZABHRABHRABnYELGCBxULxKRW0XBvL/INdn+kqUgUQOEWzAfzL5lpLx4mRoUJ96BI91YRp2kXAjeV1nlXduDbl+otULUz0IKuqa8kRWTvZWlOuwMEGcbKLsV+MZzDVU+mldY0eTspV2xip9pvx8IkA4LgLsMSqM1OTRvhz5iqKf6cYlXYg1MdsCDgEg6BzACWBuAe0AxOBjD5kKCM4AAAAASUVORK5CYII=" alt="قنوات" />
       قنوات
     </button>
     <button class="nav-btn" data-target="news-section" title="أخبار">
-      <i class="fas fa-newspaper"></i>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAcCAYAAAC5KMLKAAAAv0lEQVR4nO2WwQ3CMBBF/4oU0SIF0SIF0SIDF9GFIoWlEN8kOEhBe0EbDfgZyNbs2OEcQaJ/nphjIFZnbvKAowN3NnNCXsfxH6MllMx9OeTHRBMoxHBPjE7cpjR0BRkkBOk+FcdUZ1sExS6U4vW6yw2swR4IoYbNZ7meAvMCkXwQL8FQPg2xGMW9AsMg1IIRN1BPKVVVGsQKjFzzg8dQOL3ZJb4YAAAAASUVORK5CYII=" alt="أخبار" />
       أخبار
     </button>
     <button class="nav-btn" data-target="settings-section" title="إعدادات">
-      <i class="fas fa-cog"></i>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABU4Y0XAAABAUlEQVR4nO2VwQnCMBBFv6IroQS0hKxBsoQW0gZiwRSwBVSUAPz8bgNR6d8y41ZgODrYDe+6LuHBEbnhHTiRnSfaIfSkEY/8SzkN1qNM/RZR6bVwAqD3zsyScRMgIlIjHqIrcZKtdUlSSkl6O3dbHFMSSxVsU9VVKX1W2u8I/CkWwa6KXapXiM0DVH+KIowAqT8O/EFcDkHWBKgTwG6AWBOgNwGf9coKohb2nBwAAAABJRU5ErkJggg==" alt="إعدادات" />
       إعدادات
     </button>
   </nav>
 
   <script>
-    // تحميل وعرض المباريات
     fetch('https://raw.githubusercontent.com/mohammed0982/mat/refs/heads/main/matches.json')
       .then(res => res.json())
       .then(matches => {
         const container = document.getElementById('matches-container');
-
         matches.forEach((match, index) => {
           const matchDiv = document.createElement('div');
           matchDiv.className = 'match';
-
-          // تأخير الأنيميشن بشكل تدريجي لكل مباراة
           matchDiv.style.animationDelay = `${index * 0.1}s`;
-
           matchDiv.innerHTML = `
             <div class="team">
               <img src="${match.home_logo}" alt="${match.home_team}" onerror="this.src='https://via.placeholder.com/40?text=?'">
@@ -279,34 +241,25 @@
               <div>${match.away_team}</div>
             </div>
           `;
-
           matchDiv.addEventListener('click', () => {
             document.getElementById('dialog').style.display = 'flex';
           });
-
           container.appendChild(matchDiv);
         });
       })
       .catch(err => console.error("مشكل في جلب JSON:", err));
 
-
-    // التنقل بين الأقسام مع تفعيل الأنيميشن للأيقونة
     const navButtons = document.querySelectorAll('.nav-btn');
     const sections = document.querySelectorAll('.content-section');
-
     navButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        // إزالة الكلاس active من جميع الأزرار والأقسام
         navButtons.forEach(b => b.classList.remove('active'));
         sections.forEach(s => s.classList.remove('active'));
-
-        // تفعيل الزر والقسم المحدد
         btn.classList.add('active');
         const targetId = btn.getAttribute('data-target');
         document.getElementById(targetId).classList.add('active');
       });
     });
   </script>
-
 </body>
 </html>
